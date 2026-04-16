@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/auth")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    // Đăng ký tài khoản
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        return "register";
+        return "auth/register";
     }
 
     @PostMapping("/register")
@@ -34,65 +34,53 @@ public class UserController {
             @Valid @ModelAttribute("user") User user,
             BindingResult result
     ){
-        if (result.hasErrors()) return "register";
+        if (result.hasErrors()){
+            return "auth/register";
+        }
 
         try {
             userService.registerUser(user);
-            return "redirect:/user/login";
+            return "redirect:/auth/login"; // chuyển sang trang login
         } catch (EmailException e) {
             result.rejectValue("email", "error.user", e.getMessage());
-            return "register";
+            return "auth/register";
         }
     }
 
     @GetMapping("/login")
     public String login(Model model, HttpSession session) {
-
         User userLogin = (User) session.getAttribute("userLogin");
-
-        // kiểu tra user có tồn tại không
         if (userLogin != null) {
-            if (userLogin.getRole() == Role.ADMIN) {
-                return "redirect:/admin";
-            } else {
-                return "redirect:/student";
-            }
+            return (userLogin.getRole() == Role.ADMIN) ? "redirect:/admin" : "redirect:/student";
         }
 
         model.addAttribute("user", new User());
-        return "login";
+        return "auth/login"; // Sửa đường dẫn trả về
     }
 
     @PostMapping("/login")
-    public String doLogin(
-            @ModelAttribute("user") User user,
-            Model model,
-            HttpSession session
-    ) {
+    public String doLogin(@ModelAttribute("user") User user, Model model, HttpSession session) {
         try {
             User u = userService.login(user.getEmail(), user.getPassword());
-
-            // lưu session
             session.setAttribute("userLogin", u);
-            //  phân quyền
-            if (u.getRole() == Role.ADMIN) {
+
+            if (u.getRole() == Role.ADMIN){
                 return "redirect:/admin";
-            } else if (u.getRole() == Role.STUDENT) {
+            }
+            if (u.getRole() == Role.STUDENT) {
                 return "redirect:/student";
             }
 
             return "redirect:/home";
-
         } catch (InvalidCredentialsException e) {
             model.addAttribute("error", e.getMessage());
-            return "login";
+            return "auth/login"; // Sửa đường dẫn trả về
         }
     }
 
-    // Đăng xuất khỏi hệ thống
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/user/login";
+        return "redirect:/auth/login"; // Sửa đường dẫn redirect
     }
 }
