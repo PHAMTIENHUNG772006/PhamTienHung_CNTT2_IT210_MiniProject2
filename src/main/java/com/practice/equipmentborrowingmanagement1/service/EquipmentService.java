@@ -101,7 +101,7 @@ public class EquipmentService {
         return true;
     }
 
-    public String uploadFile(MultipartFile file, HttpServletRequest request) {
+    public String uploadFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return "default.png";
         }

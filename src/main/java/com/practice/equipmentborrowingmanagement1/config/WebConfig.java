@@ -14,6 +14,8 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import java.io.File;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.practice.equipmentborrowingmanagement1")
@@ -52,14 +54,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Vẫn giữ cho các file tĩnh trong project
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/");
-
-        //  TRỎ ĐẾN THƯ MỤC LƯU FILE BÊN NGOÀI
-        String uploadPath = System.getProperty("user.dir") + "/uploads/images/";
+        String rootPath = System.getProperty("user.dir");
+        String uploadPath = rootPath + File.separator + "uploads" + File.separator + "images" + File.separator;
+        System.out.println("root : " + rootPath);
+        System.out.println("upload : " + uploadPath);
 
         registry.addResourceHandler("/display-images/**")
-                .addResourceLocations("file:" + uploadPath + "/");
+                .addResourceLocations("file:" + uploadPath);
     }
 }

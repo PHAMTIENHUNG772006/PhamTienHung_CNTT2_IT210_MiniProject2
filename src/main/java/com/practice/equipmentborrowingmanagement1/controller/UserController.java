@@ -52,7 +52,7 @@ public class UserController {
     public String login(Model model, HttpSession session) {
         User userLogin = (User) session.getAttribute("userLogin");
         if (userLogin != null) {
-            return (userLogin.getRole() == Role.ADMIN) ? "redirect:/admin" : "redirect:/student";
+            return (userLogin.getRole() == Role.ADMIN) ? "redirect:/admin/inventory" : "redirect:/student";
         }
 
         model.addAttribute("user", new User());

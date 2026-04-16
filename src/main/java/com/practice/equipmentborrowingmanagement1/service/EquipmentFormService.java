@@ -74,4 +74,12 @@ public class EquipmentFormService {
         equipment.setStock(equipment.getStock() + request.getQuantity());
         equipmentRepository.update(equipment);
     }
+
+    public void updateStatus(int id){
+        EquipmentForm equipmentForm = equipmentFormRepository.findById(id);
+        if(equipmentForm != null){
+            equipmentForm.setStatus(!equipmentForm.isStatus());
+        }
+
+    }
 }

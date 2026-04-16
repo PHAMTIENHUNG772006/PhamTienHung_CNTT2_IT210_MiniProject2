@@ -34,7 +34,7 @@ public class EquipmentRepository {
 
     // Lấy tất cả thiết bị
     public List<Equipment> findAll() {
-        return equipments;
+        return equipments.stream().filter(Equipment::isStatus).toList();
     }
 
     // Tìm theo id
@@ -61,9 +61,10 @@ public class EquipmentRepository {
         }
     }
 
-    // Xóa
+    // Xóa mềm
     public void delete(int id) {
-        equipments.removeIf(e -> e.getId() == id);
+        Equipment equipment = findById(id);
+        equipment.setStatus(false);
     }
 
     // Kiểm tra tồn tại

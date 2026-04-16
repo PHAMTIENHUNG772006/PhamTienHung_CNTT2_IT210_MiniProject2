@@ -3,54 +3,176 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <title>Title</title>
-    <!-- Required meta tags -->
+    <title>Bảng điều khiển Admin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+        }
+
+        /* Khối bao quanh nội dung */
+        .dashboard-card {
+            background-color: #ffffff;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: none;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            color: #2d3436;
+            font-weight: 800;
+            font-size: 30px;
+            letter-spacing: -0.8px;
+        }
+
+        /* Nút quản lý kho với Gradient Tím */
+        .btn-inventory-custom {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white !important;
+            border: none;
+            border-radius: 15px;
+            padding: 12px 25px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-inventory-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* Bảng dữ liệu hiện đại */
+        .table-container {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #f1f3f5;
+            margin-top: 25px;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            color: #636e72;
+            border: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            padding: 20px;
+        }
+
+        .table tbody td {
+            padding: 20px;
+            vertical-align: middle;
+            color: #2d3436;
+            border-top: 1px solid #f1f3f5;
+        }
+
+        .table tbody tr:hover {
+            background-color: #fcfcff;
+        }
+
+        /* Badge Trạng thái màu mè */
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .status-approved {
+            background-color: #ebfaf0;
+            color: #00b894;
+        }
+
+        .status-pending {
+            background-color: #fff4e5;
+            color: #fdcb6e;
+        }
+
+        .section-icon {
+            color: #6c5ce7;
+            margin-right: 15px;
+        }
+    </style>
 </head>
 <body>
-  <div layout:fragment="content" class="container mt-4">
-      <h1>Quản lý mượn trả thiết bị</h1>
-      <hr>
-      <a th:href="@{/admin/inventory}" class="btn btn-primary mb-3">Quản lý kho thiết bị</a>
+<div layout:fragment="content" class="container">
+    <div class="dashboard-card">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="bi bi-ui-checks section-icon"></i>Quản lý mượn trả</h1>
+            <a th:href="@{/admin/inventory}" class="btn btn-inventory-custom">
+                <i class="bi bi-box-seam mr-2"></i>Quản lý kho thiết bị
+            </a>
+        </div>
 
-      <table class="table table-bordered">
-        <thead class="thead-dark">
-        <tr>
-          <th>Mã sinh viên</th>
-          <th>Tên sinh viên</th>
-          <th>Tên thiết bị</th>
-          <th>Ngày mượn</th>
-          <th>Số lượng</th>
-          <th>Trạng thái</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="f : ${requests}">
-          <td th:text="${f.studentId}"></td>
-          <td th:text="${f.fullName}"></td>
-          <td th:text="${f.equipment != null ? f.equipment.name : 'N/A'}"></td>
-          <td th:text="${f.borrowDate}"></td>
-          <td th:text="${f.quantity}"></td>
-          <td th:text="${f.status ? 'Đã duyệt' : 'Chờ duyệt'}"></td>
-        </tr>
-        </tbody>
-      </table>
-  </div>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        <hr style="opacity: 0.05;">
+
+        <div class="table-container shadow-sm">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Mã sinh viên</th>
+                    <th>Tên sinh viên</th>
+                    <th>Thiết bị</th>
+                    <th>Ngày mượn</th>
+                    <th class="text-center">Số lượng</th>
+                    <th class="text-center">Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="f : ${requests}">
+                    <td class="font-weight-bold text-muted" th:text="${f.studentId}"></td>
+                    <td class="font-weight-bold" th:text="${f.fullName}"></td>
+                    <td>
+                        <span class="text-primary" th:text="${f.equipment != null ? f.equipment.name : 'N/A'}"></span>
+                    </td>
+                    <td th:text="${f.borrowDate}"></td>
+                    <td class="text-center">
+                        <span class="badge badge-light px-3 py-2" style="border-radius: 8px;" th:text="${f.quantity}"></span>
+                    </td>
+                    <td class="text-center">
+                        <span th:class="${f.status ? 'status-badge status-approved' : 'status-badge status-pending'}"
+                              th:text="${f.status ? 'Đã duyệt' : 'Chờ duyệt'}">
+                        </span>
+                    </td>
+                    <td>
+                        <a th:if="${!f.status}"
+                           th:href="@{/admin/approve/{id}(id=${f.id})}"
+                           class="btn-approve">
+                            <i class="bi bi-check2-circle mr-1"></i> Duyệt đơn
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${requests == null or requests.isEmpty()}" class="text-center py-5">
+            <i class="bi bi-inbox text-muted" style="font-size: 3rem; opacity: 0.3;"></i>
+            <p class="text-muted mt-3">Chưa có yêu cầu mượn trả nào được ghi nhận.</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

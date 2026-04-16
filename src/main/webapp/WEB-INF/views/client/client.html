@@ -144,6 +144,33 @@
             justify-content: center;
             margin-right: 10px;
         }
+
+        .btn-approve {
+            background: linear-gradient(135deg, #00b894, #55efc4);
+            color: white !important;
+            border: none;
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 184, 148, 0.2);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-approve:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 184, 148, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .btn-approve.disabled {
+            background: #dfe6e9;
+            color: #b2bec3 !important;
+            box-shadow: none;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -171,7 +198,7 @@
             <div class="col-sm-6 col-md-4 col-lg-3 mb-5" th:each="item : ${equipments}">
                 <div class="card h-100 equipment-card shadow-sm">
                     <div class="position-relative overflow-hidden" style="border-radius: 25px 25px 0 0;">
-                        <img th:src="${item.image != null && !item.image.isEmpty() ? item.image : 'https://via.placeholder.com/400x300?text=No+Image'}"
+                        <img th:src="@{'/display-images/' + ${item.image != null ? item.image : 'default.png'}}"
                              class="card-img-top card-img-custom" alt="Hình ảnh">
                         <span class="badge-type position-absolute shadow-sm" th:text="${item.type}">Loại</span>
                     </div>
@@ -245,6 +272,8 @@
                                                 <div class="form-group mb-4">
                                                     <label class="font-weight-bold small text-muted">SỐ LƯỢNG</label>
                                                     <input type="number" class="form-control form-control-custom" th:field="*{quantity}" th:errorclass="is-invalid" min="1">
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}"
+                                                         th:errors="*{quantity}"></div>
                                                 </div>
                                                 <div class="form-row mb-4">
                                                     <div class="form-group col-md-6">
