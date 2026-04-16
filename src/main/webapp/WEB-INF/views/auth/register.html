@@ -102,9 +102,9 @@
     <form th:action="@{/auth/register}" th:object="${user}" method="post">
 
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" th:field="*{username}" id="username" placeholder="Tên đăng nhập" required>
-            <small class="error-msg" style="color:red" th:errors="*{username}"></small>
+            <label for="fullname">Username</label>
+            <input type="text" th:field="*{fullname}" id="fullname" placeholder="Tên đăng nhập" required>
+            <small class="error-msg" style="color:red" th:errors="*{fullname}"></small>
         </div>
 
         <div class="form-group">
