@@ -2,10 +2,12 @@ package com.practice.equipmentborrowingmanagement1.repository;
 
 import com.practice.equipmentborrowingmanagement1.model.entity.Role;
 import com.practice.equipmentborrowingmanagement1.model.entity.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserRepository {
 
     private static final List<User> users = new ArrayList<>();

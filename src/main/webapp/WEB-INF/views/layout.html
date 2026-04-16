@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
 <head>
     <title>Hệ thống Quản lý Thiết bị IT</title>
     <meta charset="utf-8">
@@ -12,17 +12,50 @@
         .navbar-dark .nav-link { color: rgba(255,255,255,.8); }
         .navbar-dark .nav-link:hover { color: #fff; }
         .bg-primary-custom { background-color: #004085 !important; }
+        /* Nút đăng xuất tối giản trên Header */
+        .btn-header-logout {
+            border-radius: 20px;
+            font-size: 0.85rem;
+            /* Ép màu chữ trắng ngay từ đầu */
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn-header-logout:hover {
+            background-color: #dc3545;
+            /* Vẫn giữ màu chữ trắng khi di chuột vào */
+            color: white !important;
+            border-color: #dc3545;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Đảm bảo icon bên trong cũng màu trắng */
+        .btn-header-logout i {
+            color: white !important;
+        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
-    <header class="bg-primary-custom text-white py-3 shadow-sm border-bottom border-secondary">
-        <div class="container text-center">
-            <h1 class="display-5 fw-bold mb-1">
-                <i class="bi bi-pc-display-horizontal"></i> IT-LAB
-            </h1>
-            <p class="text-white fst-italic mb-0">Quản lý thiết bị thông minh - Hỗ trợ học tập tối ưu</p>
+    <header class="bg-primary-custom text-white py-4 shadow-sm">
+        <div class="container position-relative">
+            <div class="position-absolute" style="top: 0; right: 15px;">
+                <a th:href="@{/auth/logout}" class="btn btn-header-logout">
+                    <i class="bi bi-box-arrow-right mr-1"></i> Đăng xuất
+                </a>
+            </div>
+
+            <div class="text-center">
+                <h1 class="display-5 fw-bold mb-1">
+                    <i class="bi bi-pc-display-horizontal"></i> IT-LAB
+                </h1>
+                <p class="text-white fst-italic mb-0" style="opacity: 0.9;">
+                    Quản lý thiết bị thông minh - Hỗ trợ học tập tối ưu
+                </p>
+            </div>
         </div>
     </header>
+
 
     <main class="container my-5 flex-grow-1">
         <div layout:fragment="content">
