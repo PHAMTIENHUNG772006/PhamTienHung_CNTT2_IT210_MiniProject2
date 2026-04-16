@@ -1,5 +1,6 @@
 package com.practice.equipmentborrowingmanagement1.service;
 
+import com.practice.equipmentborrowingmanagement1.customException.EmailException;
 import com.practice.equipmentborrowingmanagement1.model.entity.User;
 import com.practice.equipmentborrowingmanagement1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +15,26 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public boolean registerUser(User user) {
+    public void registerUser(User user) {
 
-        if (user == null){
-            return false;
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new EmailException("Email đã tồn tại");
         }
 
-        return false;
+        userRepository.save(user);
     }
 
     @Override
-    public boolean login(String username, String password, String confirmPassword) {
-        return false;
+    public User login(String email, String password) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new InvalidCredentialsException("Email không tồn tại"));
+
+        if (!user.getPassword().equals(password)) {
+            throw new InvalidCredentialsException("Sai mật khẩu");
+        }
+
+        return user;
     }
 
     @Override
