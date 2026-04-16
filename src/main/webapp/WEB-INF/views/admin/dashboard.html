@@ -11,34 +11,25 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div class="container mt-4">
-  <h1>Admin - Danh sách mượn</h1>
-  <hr>
-  <div class="mb-3">
-    <a href="/admin/inventory" class="btn btn-secondary">Quản lý kho thiết bị</a>
+  <div class="container mt-4">
+    <h2>Yêu cầu mượn từ Sinh viên</h2>
+    <a href="/admin/inventory" class="btn btn-primary mb-3">Quản lý kho</a>
+    <table class="table table-bordered">
+      <thead class="table-dark">
+      <tr>
+        <th>MSSV</th><th>Họ Tên</th><th>Ngày mượn</th><th>Số lượng</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="req : ${requests}">
+        <td th:text="${req.studentId}"></td>
+        <td th:text="${req.fullName}"></td>
+        <td th:text="${req.borrowDate}"></td>
+        <td th:text="${req.quantity}"></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-
-  <table class="table table-bordered">
-    <thead class="table-dark">
-    <tr>
-      <th>Mã SV</th>
-      <th>Họ Tên</th>
-      <th>Ngày mượn</th>
-      <th>Ngày trả</th>
-      <th>Số lượng</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="req : ${requests}">
-      <td th:text="${req.studentId}"></td>
-      <td th:text="${req.fullName}"></td>
-      <td th:text="${req.borrowDate}"></td>
-      <td th:text="${req.returnDate}"></td>
-      <td th:text="${req.quantity}"></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

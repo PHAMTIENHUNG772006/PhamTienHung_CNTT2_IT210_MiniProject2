@@ -12,21 +12,19 @@
 </head>
 <body>
     <div class="container mt-4">
-        <h1>Quản lý kho thiết bị</h1>
-        <hr>
+        <h2>Quản lý kho thiết bị</h2>
         <div class="mb-3">
-            <a href="/admin/add-page" class="btn btn-success">Thêm thiết bị mới</a>
-            <a href="/admin/requests" class="btn btn-primary">Xem yêu cầu mượn</a>
+            <a href="/admin/dashboard" class="btn btn-info text-white">Xem yêu cầu</a>
+            <a href="/admin/add-page" class="btn btn-success">+ Thêm mới</a>
         </div>
-
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Tên</th>
                 <th>Loại</th>
-                <th>Số lượng tồn</th>
-                <th>Thao tác</th>
+                <th>Tồn</th>
+                <th>Hành động</th>
             </tr>
             </thead>
             <tbody>
@@ -37,10 +35,7 @@
                 <td th:text="${item.stock}"></td>
                 <td>
                     <a th:href="@{'/admin/edit/' + ${item.id}}" class="btn btn-warning btn-sm">Sửa</a>
-
-                    <a th:href="@{'/admin/delete/' + ${item.id}}"
-                       class="btn btn-danger btn-sm"
-                       onclick="return confirm('Bạn có muốn xóa không?')">Xóa</a>
+                    <a th:href="@{'/admin/delete/' + ${item.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Xóa?')">Xóa</a>
                 </td>
             </tr>
             </tbody>

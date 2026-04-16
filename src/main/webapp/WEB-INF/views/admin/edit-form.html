@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h2 th:text="${equipment.id == 0} ? 'Thêm mới' : 'Cập nhật'"></h2>
+        <h2 th:text="${equipment.id == 0} ? 'Thêm mới' : 'Sửa thiết bị'"></h2>
         <form th:action="@{/admin/save}" th:object="${equipment}" method="post" class="card p-4 shadow-sm">
             <input type="hidden" th:field="*{id}">
             <div class="mb-3">
@@ -24,11 +24,11 @@
                 <input type="text" th:field="*{category}" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label>Số lượng:</label>
+                <label>Số lượng kho:</label>
                 <input type="number" th:field="*{stock}" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary">Lưu lại</button>
-            <a href="/admin/inventory" class="btn btn-link">Quay lại</a>
+            <a href="/admin/inventory" class="btn btn-link">Hủy</a>
         </form>
     </div>
 <!-- Optional JavaScript -->
