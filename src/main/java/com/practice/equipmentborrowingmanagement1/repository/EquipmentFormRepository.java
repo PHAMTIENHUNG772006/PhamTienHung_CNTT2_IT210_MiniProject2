@@ -1,11 +1,12 @@
 package com.practice.equipmentborrowingmanagement1.repository;
 
 import com.practice.equipmentborrowingmanagement1.model.entity.EquipmentForm;
+import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class EquipmentFormRepository {
 
     private static final List<EquipmentForm> forms = new ArrayList<>();
